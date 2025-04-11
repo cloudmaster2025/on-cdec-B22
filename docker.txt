@@ -1,0 +1,45 @@
+    #docker cp file-to-be-sent   <container-name>:location-of-pasting 
+     (to copy file from server to container) 
+ 
+     #docker save -o  file.tar   <image-name> 
+     (to conver image into tar file)
+     
+     #scp -i private.key file-to-be-sent user-name@ip-address:/location-of-pasting-file
+   
+     #docker load -i file.tar
+      (to convert file into image file)
+
+       
+                            
+
+
+      Stateless Application                              Stateful Application
+      
+   > no previous state matters                         > Preavious state matters
+   > eg- static website                                > heavy apps(instagram)  
+
+
+              
+                                Docker volume
+
+  Volume is nothing but mounting of container's directory into server's directory.
+
+              Bind Mount volume                    Persistent volume
+             1) temporary volume                1) Permanent volume 
+             2) any location in the             2) /var/lib/docker/volumes/
+                server
+             3) Risk factor high                3) low risk 
+             4) testing purpose                 4) for each use
+             
+             directory on any location
+             use mount kr diya                    type- i)  internal volume
+						        ii) external volume
+ 
+#docker run -d -p 81:80 -v /root/kuldeep:/mnt --name cont2 nginx  
+		                                 #docker run -d -p  92:80 --name cont4 -v volvo:/usr/share/nginx/html/ nginx                                                                        						
+
+
+
+
+
+      
