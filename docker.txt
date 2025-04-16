@@ -46,10 +46,47 @@
 #docker run -d -p 81:80 -v /root/kuldeep:/mnt --name cont2 nginx  
 		                                 #docker run -d -p  92:80 --name cont4 -v volvo:/usr/share/nginx/html/ nginx                                                                        					
 
-	
+
+Dockerfile -  It is a text file in which we add some instruction and build a docker image by it.
+
+default name -  Dockerfile
+
+# docker build -t <image-name>  .     {by default name}
+# docker build -f kunal <image-name> .
+
+
+FROM - base image (pulled from your registry)
+WORKDIR - current working directory inside container "/opt"
+RUN -  to run a command inside container "mkdir /mnt/hello"  during creation of image
+RUN 
+CMD  - execute while run container, to start sevices 
+ENTRYPOINT - execute while run container but can't be overridden
+COPY  source    destination
+ADD   url(source)       destination{paste, download, extract} 
+LABEL    -  hardcode value
+ARG      -   label value can be variable by this 
+ENV    -  environment variables  {credentials} 
+EXPOSE
+
+FROM ubuntu:latest
+WORKDIR /opt
+RUN  apt update && apt install openjdk-11-jdk -y && apt install vim -y
+ADD  https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.104/bin/apache-tomcat-9.0.104.tar.gz .
+RUN tar -xzf apache-tomcat-9.0.104.tar.gz
+CMD  ["/opt/apache-tomcat-9.0.104/bin/catalina.sh" , "run"]
+LABEL  team=$label
+ARG    label="test"
+
+docker build  -f kunal --build-arg edit="kunal" -t kuldeep400/tomcat:test .
+
+
+Hardcode values  -> fixed value
+Variable  values  ->  modifiable
 
 
 
 
+
+   
 
       
