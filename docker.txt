@@ -100,6 +100,58 @@ restart  tomcat
 
 
 
+                        Docker-Compose
+* Is a tool by which you can create multiple containers in one go.
+* we write a file for this purpose {docker-compose.yaml}
+ 
+
+ 
+xml =>  hard to use 
+yml =>  comparatively easy {indentation(spacing), Case-sensitive}
+    => use - compose file, manifest file(kubernetes), playbook(ansible), Datadog
+ 
+[
+Dadaji-dadi
+  Father
+    you
+      your-child
+Nanaji-nani
+  mother
+    you
+      your-child
+
+]
+
+key: value
+Name = kuldeep
+Roll No.  = 123123
+x =  5
+
+vim Docker-compose.yaml
+
+version: "3.4"
+services: 
+  cont1:
+    image: nginx
+    ports: 
+      - 80:80
+  cont2:
+    image: tomcat
+    ports: 
+    - 8080:8080  
+  cont3:
+    image: MySQL
+    environment:
+    - MYSQL_ROOT_PASSWORD: 1234
+networks:
+volumes: 
+
+
+
+
+
+
+
    
 
       
