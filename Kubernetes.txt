@@ -1,0 +1,33 @@
+Docker > container > trust > manually > Docker-swarm > to manage containers automatically
+
+Google > Borg > 2015 > Linux Foundation > Kubernetes(k8s) -> open source, very advance,
+high secure, free to use
+
+              KUBERNETES [container orchestration tool]
+      cluster
+      nodes{ Master node, Worker nodes}
+      pods  (smallest unit of deployment in k8s)
+
+  Master node components
+ 1) API server > Route the request
+ 2) ETCD  > Store the data here
+ 3) Scheduler > Schedule the nodes(server)
+ 4) Controller Manager > keep the resources in your desired state
+
+  Worker node components
+ 1) Kubelette > create the pod
+ 2) container runtime > provide environment to create container inside pod
+ 3) Kube-proxy > provide the networking (ip-addresses) to the pod
+
+   
+Pod > smallest unit of deployment in k8s
+    > wrapper in which we create containers 
+    > we can create multiple containers in one pod 
+    > pod has its own ip address
+    
+
+  
+
+
+   
+
