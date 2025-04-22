@@ -13,9 +13,10 @@ high secure, free to use
  2) ETCD  > Store the data here
  3) Scheduler > Schedule the nodes(server)
  4) Controller Manager > keep the resources in your desired state
+                          (current state = Desired state)
 
   Worker node components
- 1) Kubelette > create the pod
+ 1) Kubelette > create the pod and monitor it
  2) container runtime > provide environment to create container inside pod
  3) Kube-proxy > provide the networking (ip-addresses) to the pod
 
@@ -24,6 +25,40 @@ Pod > smallest unit of deployment in k8s
     > wrapper in which we create containers 
     > we can create multiple containers in one pod 
     > pod has its own ip address
+
+
+
+Objects -> Cluster
+(RESOURCES) > Node
+         > Pod 
+         > Namespace
+         > service - to expose pod outside the cluster 
+         > Replica set {Earlier -Replication controller}
+         > Deployment
+         > StatefulSet
+         > Daemonset
+         > Ingress 
+         > Horizontal Pod Autoscalling
+         > config map  and secrets variables 
+
+
+Cluster - on cloud         , on premises,     on server,        webapplcation
+          EKS {managed}       Kubeadm          minikube         killercoda {two node cluster}
+          AKS                 Kind            {single node}
+          GKE                {Self-Managed}
+
+
+
+# kubectl {prefix of k8s commands}
+# kubectl run <podname> --image=<imagename>   {to create and run the pod}
+# kubectl get <resource-name>
+# kubectl get node 
+# kubectl get pod -o wide  {described details}
+
+  
+        
+
+
     
 
   
