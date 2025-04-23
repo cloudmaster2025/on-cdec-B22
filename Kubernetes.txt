@@ -55,12 +55,55 @@ Cluster - on cloud         , on premises,     on server,        webapplcation
 # kubectl get node 
 # kubectl get pod -o wide  {described details}
 
+
+* In a pod there are two container one is main and other is side car container
+
+manifest {yaml file}   "Indentation  maintain"
+ 
+vi pod.yaml
+
+apiVersion: "library"
+kind:    "Type of resource"
+metadata: "data of data"
+spec: "service of pod"
+
+
+
+
+apiVersion:  v1   
+kind :  Pod       
+metadata:  
+  name: demopod
+  label:
+    team: prod
+spec:
+  containers:
+  - name: container1
+    image: nginx
+  - name: container2
+    image: tomcat 
+     
+
+after creation of file please apply it
+
+# kubectl apply -f <filename>
+
+
+
+*Port no. of container is imp. for communicate with particular container in a pod
+*No two container in same pod can have same port
   
         
+-->   Intra-pod communication
+1) same pod containers connect
+2) Use podIP or localhost to connect
 
+#  kubectl exec -it demo-pod -- bash
+#  kubectl exec -it -c container2 demo-pod -- bash
 
-    
-
+-->  Inter-Pod
+ 
+two different pod communication
   
 
 
