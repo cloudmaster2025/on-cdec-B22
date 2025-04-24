@@ -32,7 +32,7 @@ Objects -> Cluster
 (RESOURCES) > Node
          > Pod 
          > Namespace
-         > service - to expose pod outside the cluster 
+         > service - to expose pod outside and inside  the cluster 
          > Replica set {Earlier -Replication controller}
          > Deployment
          > StatefulSet
@@ -104,8 +104,30 @@ after creation of file please apply it
 -->  Inter-Pod
  
 two different pod communication
+
+#kubectl api-resources 
   
+Pod get terminate again and again and ip got changed but not label of pod
 
+@@@@@Service@@@@
+ type- 1) ClusterIP -  which i used to provide static IP and common/single Ip to the pods, but work only inside         	  (default one) 	        cluster
+       
+       2) NodePort   -  service resource will generate a random port no.{30k}, and use it with nodeIP       			[nodeIp:nodePort]
+       3) LoadBalancer - 
 
-   
+{
+
+apiVersion: v1
+kind: Service
+metadata: 
+  name: my-svc
+spec:
+  selector:
+    team: dev
+  ports:
+  - port: 80
+    targetPort: 80
+  type: NodePort
+
+}   
 
