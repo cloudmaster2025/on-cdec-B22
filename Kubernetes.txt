@@ -131,3 +131,117 @@ spec:
 
 }   
 
+
+Replication Controller - to keep maintain the no. of pods you create in the running state at a given time
+
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: my-rc
+  labels:
+    app: my-app
+spec:
+  template:
+    metadata:
+      name: Pod1
+      labels:
+        team: test
+    spec:
+      containers:
+      - name: cont1
+        image: nginx
+  selector:
+    team: test
+  replicas: 4
+
+
+*labels are important here
+* recreates pod automatically at desired replica
+* to delete pod , need to delete rc
+
+
+Replica-set =>  this work as a set based selector
+
+
+---> set based labels selector
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: my-rs
+  labels:
+    app: my-app
+spec:
+  template:
+    metadata:
+      name: Pod1
+      labels:
+        team: test
+        team: prod
+        group: dev
+    spec:
+      containers:
+      - name: cont1
+        image: nginx
+  selector:
+    matchExpressions:
+      key: ["team","group"]
+      values: ["test","dev","prod"]
+  replicas: 4
+
+--->
+no set based selector
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: my-rs
+  labels:
+    app: my-app
+spec:
+  template:
+    metadata:
+      name: Pod1
+      labels:
+        team: dev       
+    spec:
+      containers:
+      - name: cont1
+        image: nginx
+  selector:
+    matchLabels:
+      team: dev
+  replicas: 4
+
+
+
+@@@@Namespace@@@@@
+
+
+                   
+
+                      @@@Deployment@@@@
+> To manage and maintain that no. of pods are kept running on a particular given time.
+>  rolling update and rolling back policy{task}"
+****{generally use for stateless application like frontend and backend}
+    
+$Rolling update > in this policy the resource pods get automatically update as per updation in manifest
+>>>>>>strategy -> 1) Rolling Update strategy -  first create then destroy  {defaut}
+                  2) Recreate   -  first delete all in one go and then create in one go
+                  3) Canary deployment   (task)
+                  4) Blue-green deployment (task)
+
+
+
+            @@@StatefulSet@@@
+ game > level 10 > next day > level 0   --- > stateless
+ game > level 10 > next day  > level 10    ----> stateful (previous states matter)
+
+ *** it is use for stateful application like database application 
+   ** all pods created by ss have there unique identity start from 0----
+ 
+
+
+     @@@configMap and secrets@@@@@
+   variables - prevent us to store hardcoded values for the pods in manifest
+
+
