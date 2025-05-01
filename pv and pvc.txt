@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web
+spec:
+  selector:
+    matchLabels:
+      app: my-app
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      volumes:
+      - name: volvo
+        persistentVolumeClaim:
+          claimName: my-pvc
+      containers:
+      - name: cont1
+        image: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: volvo
+          mountPath: /opt
+      
+
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 450Mi
+  storageClassName: manual
+  selector:
+    matchLabels:
+      vol: heavy
+~                  
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: my-pv
+  labels:
+    vol: heavy
+spec:
+  capacity:
+    storage: 500Mi
+  volumeMode: Filesystem   
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
+  #mountOptions:
+  hostPath:
+    path: /mnt
+~                      
