@@ -244,4 +244,39 @@ $Rolling update > in this policy the resource pods get automatically update as p
      @@@configMap and secrets@@@@@
    variables - prevent us to store hardcoded values for the pods in manifest
 
+1) configMap variable is created for "non-sensitive" data like name of database 
+2) secrets variable is use for "sensitive" data like password
+    ---> to encrypt value = # echo -n pramod123 | base64
+    ---> to decrypt valute = # echo cHJhbW9kMTIz | base64 -d
+
+ @@@@volume@@@
+1)persistent volume (pv)
+2) persistent volume claim (pvc)
+
+
+
+         @@@@hpa@@@@
+
+A HorizontalPodAutoscaler (HPA for short) automatically updates a workload resource (such as a Deployment or StatefulSet), with the aim of automatically scaling the workload to match demand.
+
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: my-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: my-deploy
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 30
+
 
