@@ -28,8 +28,8 @@ Pod > smallest unit of deployment in k8s
 
 
 
-Objects -> Cluster
-(RESOURCES) > Node
+Objects     -> Cluster
+(RESOURCES)  > Node
          > Pod 
          > Namespace
          > service - to expose pod outside and inside  the cluster 
@@ -37,6 +37,7 @@ Objects -> Cluster
          > Deployment
          > StatefulSet
          > Daemonset
+         > PV and PVC
          > Ingress 
          > Horizontal Pod Autoscalling
          > config map  and secrets variables 
@@ -110,10 +111,10 @@ two different pod communication
 Pod get terminate again and again and ip got changed but not label of pod
 
 @@@@@Service@@@@
- type- 1) ClusterIP -  which i used to provide static IP and common/single Ip to the pods, but work only inside         	  (default one) 	        cluster
+ type- 1) ClusterIP -  which i used to provide static IP and common/single Ip to the pods, but work only inside         	     		       cluster ((default one))
        
-       2) NodePort   -  service resource will generate a random port no.{30k}, and use it with nodeIP       			[nodeIp:nodePort]
-       3) LoadBalancer - 
+       2) NodePort   -  service resource will generate a random port no.{30k}, and use it with nodeIP       						[nodeIp:nodePort]
+       3) LoadBalancer -  when there are multiple nodes
 
 {
 
@@ -230,6 +231,29 @@ $Rolling update > in this policy the resource pods get automatically update as p
                   3) Canary deployment   (task)
                   4) Blue-green deployment (task)
 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deploy
+  labels:
+    app: my-app
+spec:
+  template:
+    metadata:
+      name: Pod1
+      labels:
+        team: dev       
+    spec:
+      containers:
+      - name: cont1
+        image: nginx
+  selector:
+    matchLabels:
+      team: dev
+  replicas: 4
+  strategy:
+    type: Recreate
+
 
 
             @@@StatefulSet@@@
@@ -248,6 +272,9 @@ $Rolling update > in this policy the resource pods get automatically update as p
 2) secrets variable is use for "sensitive" data like password
     ---> to encrypt value = # echo -n pramod123 | base64
     ---> to decrypt valute = # echo cHJhbW9kMTIz | base64 -d
+
+@@@@DaemonSet@@@
+>> A DaemonSet ensures that all (or some) Nodes run a copy of a Pod.
 
  @@@@volume@@@
 1)persistent volume (pv)
@@ -280,3 +307,80 @@ spec:
         averageUtilization: 30
 
 
+       @@@Ingress@@@@@
+
+*> Optimizing the use and cost of resource ingress service help us to manages external access to the services     in a cluster, typically HTTP.
+
+
+# create ingress manifest file 
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: nginx.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: svc-front
+            port:
+              number: 80
+  rules:
+  - host: tomcat.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: svc-back
+            port:
+              number: 8080
+
+
+# installed ingress controller from browser
+# enter ingressclass name {kubectl get ingressclass}
+# nslookup <dns>   {to convert dns into ipv4}
+# vi /etc/hosts    {configured it}
+
+
+H.W.  ->  purchase domain and directly access from browser
+
+     
+ Task->>
+   db- statefulset
+        hpa
+        PV and PVC
+        configMap
+        secret
+        headless service
+   
+   back - deployment  (image)
+          hpa
+          service
+   
+   front  - deployment  (image)
+            hpa
+            service
+
+    Ingress manifest
+
+
+>> init container
+   pause container
+   headless service
+
+
+
+
+
+
+
+
+ 
