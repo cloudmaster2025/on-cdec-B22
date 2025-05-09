@@ -1,0 +1,90 @@
+                                   Terraform 
+
+IAC - Infrastucture as a Code  - open-source, free-to-use, work over 	multiple cloud
+
+Instance
+bucket
+vpc     ---- via console create 
+
+1) if by scripting
+i)  project1 - ec2 , s3 , rds, route53, vpc  >>> 40 - 50 days    
+               >>>.tf  file -  60-80 days
+ii) project2 - ec2 , s3 , dynamodb, route53 , vpc, lambda >>> 5 days
+iii) project3 - ec2 , s3 , dynamodb, route53 , vpc, lambda >>> 6 days
+
+2)
+i) destroying the resources
+
+3) Monitoring
+i) Documentation  
+
+
+manual errors -> absolute truth
+
+
+repetitive tasks to be automate, fast 
+
+console ---->into ---> code(scripting)   
+
+>>>shell scripting - hard to use 
+                   - rigid 
+
+
+
+IAC  - i) less time more  work
+       ii) repetitive 
+       ii) easy to monitor
+       iii) proper documentation
+       
+
+iac --> cloudFormation >>> aws
+
+
+
+>> Install the terraform on your machine
+>>> write the files  i)  .tf {terraform language}
+                     ii) .tf.json {json}
+
+>> write all the details of infra in the files and  execute
+>>> terraform lifecycle  -> i) # terraform init ---> initialize, install libraries of terraform
+                            ii) # terraform plan   
+                            iii) # terraform apply --auto-approve
+
+>> Blocks :- this blocks define what is our purpose
+    1) provider Block  -- service provider
+    2) resource Block  -- to create any  resource
+    3) data block -- existing resource ko refer
+    4) variable block -- variable
+    5) output block -- for outputs
+    6) module block  -- to refer existing script for future
+
+>> Files >> written key and value format 
+         >> "arguments" to give instruction
+
+
+format of block ---
+
+block_type resource_type block_name{
+   configuration
+} 
+      
+
+vim file.tf 
+
+provider "aws" {
+  region = "us-west-1"
+} 
+
+resource "aws_instance" "my_instance" {
+ ami = "ami-06fe18c7144382cfb"
+ instance_type = "t2.micro"
+ security_groups = ["default"]
+ key_name = "new-1" 
+}
+
+
+
+
+
+
+
