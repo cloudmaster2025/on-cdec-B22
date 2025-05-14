@@ -49,6 +49,7 @@ iac --> cloudFormation >>> aws
 >>> terraform lifecycle  -> i) # terraform init ---> initialize, install libraries of terraform
                             ii) # terraform plan   
                             iii) # terraform apply --auto-approve
+                            iv) Destroy 
 
 >> Blocks :- this blocks define what is our purpose
     1) provider Block  -- service provider
@@ -77,13 +78,79 @@ provider "aws" {
 
 resource "aws_instance" "my_instance" {
  ami = "ami-06fe18c7144382cfb"
- instance_type = "t2.micro"
+ instance_type = var.i_type           'reffered variable block here from below'
  security_groups = ["default"]
  key_name = "new-1" 
 }
 
 
+Arguments - given key (image_id)
+Attribute -  what we get  (public_ip)
 
+
+data_types ---
+
+i) string = "" = "t2.micro" , "1234hello"
+ii) numbers =  1234
+iii) list = ["apple", "banana", "pineapple"]
+iv) set =  {"apple", "apple", "banana", "apple",  "papaya"}
+v) map = (fruit="apple",fruits="bananas" bus="volvo")
+
+
+***security group rules
+egress {
+    from_port        = 0    {all ports/trffic}
+    to_port          = 0
+    protocol         = "-1"  {all protocols}
+    cidr_blocks      = ["0.0.0.0/0"]
+ }
+
+
+***heredoc- to write script in user data of instance
+   user_data = <<-EOF
+   #!/bin/bash
+   yum update
+   yum install nginx -y
+   systemctl start nginx
+   systemctl enable nginx
+   echo "hello $HOSTNAME" > /usr/share/nginx/html/index.html
+   EOF
+
+***file function for user data
+   user_data = filebase64("./script.sh")
+
+
+TASK -> LOAD Balancer terraform fie
+
+
+
+*****variable  -  to prevent from being rigid(hardcode) in value giving for argument
+   block_type "block_name" {}
+
+   variable "i_type" {}
+   variable  "image_id" {
+   default = "ami-04f7a54071e74f48"
+}
+
+# terraform plan --var image_id=ami-0e40cbc388241f8ce
+
+
+*****data block - block is use to reffering the existing resources like custom_vpc, custom_sg etc.
+   data "aws_vpc" "my-vpc" {
+     id= "existing_vpc"
+    }
+
+
+
+ASG
+
+i) template
+ii) vpc
+iii) group size (desrired, min, max)
+iv) auto-scaling-policy
+v)sns
+vi)tag
+vii) review
 
 
 
