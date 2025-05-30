@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+    stages{
+        stage ('Pull') {
+            steps {
+                git branch: 'branch1', url: 'https://github.com/cloudmaster2025/nginx.git'  
+            }            
+        } 
+        stage ('Build'){
+            steps{
+                echo 'code build'
+            }
+        }
+        stage ('Test'){
+            steps{
+                echo 'code tested'
+            }
+        }
+        stage ('deploy'){
+            steps{
+                echo 'code deployed'
+            }
+        }
+    }
+}
