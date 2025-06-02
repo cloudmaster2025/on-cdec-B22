@@ -3,12 +3,12 @@ pipeline {
     stages{
         stage ('Pull') {
             steps {
-                git branch: 'branch1', url: 'https://github.com/cloudmaster2025/nginx.git'  
+                git branch: 'branch1', url: 'https://github.com/cloudmaster2025/sonar.git'  
             }            
         } 
         stage ('Build'){
             steps{
-                echo 'code build'
+                sh '/opt/apache-maven-3.9.9/bin/mvn clean package'
             }
         }
         stage ('Test'){
