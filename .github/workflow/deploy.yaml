@@ -3,7 +3,7 @@ name: Deploy to Azure VM
 on:
   pull request:
     branches:
-      - master      # change if needed (dev / prod)
+      - main     # change if needed (dev / prod)
   workflow_dispatch:
 
 jobs:
