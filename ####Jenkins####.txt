@@ -1,0 +1,118 @@
+       ####Jenkins####
+>  free-open-source tool
+> java technology > to run we  need java package dependency on your server
+> work in gui on browser, port 8080
+
+why Jenkins is popular?
+> comparatively easy to use and user friendly
+> large no. plugins (1800+)
+
+Devops - automate the repetative, easy, time saving
+
+
+more work towards the developer 
+
+>> developers develop the code and push over scm
+ >to make it deployable over server we have to follow these steps
+                                 i) Pull
+                                 ii) Build - .war, .jar (artifact)  -
+                                 iii) test
+                                 iv) Deploy / Delivery
+>> earlier developers used to perform these steps manually
+>> devops eng. by tools like Jenkins made these steps automatic 
+    -- we create a pipeline in which all these steps are simply return 
+
+  ##pipeline## -> CICD (continuous integration - continuous deployment)
+                  CICD (continuous integration - continuous delivery)
+
+    >> the time we push code over the main branch, the pipeline will trigger and the code will deploy automatically over the server 
+
+
+      tools other than Jenkins -> GitLab, Github_action, cloud_pipeline, azure_pipeline 
+
+
+# build has two meaning  while using Jenkins >
+  --- build: job execution
+                 
+
+Plugins > i) Git
+          ii) ssh-build agent
+          iii) pipeline
+          iv) stage-view
+
+
+Q) what is pipeline?
+In Jenkins, a pipeline is a structured workflow that automates the process of building, testing, and deploying software
+
+      two types of pipeline
+       Scripted                                     Declarative
+   i) hard                                          i) easy
+   ii) node 					    ii) pipeline
+   iii) used to use in companies                    iii) currently in use
+
+  ---> pipelines are written in groovy language
+
+
+pipeline {
+    agent any
+    stages{
+        stage ('Pull') {
+            steps {
+                git branch: 'branch1', url: 'https://github.com/cloudmaster2025/nginx.git'  
+            }            
+        } 
+        stage ('Build'){
+            steps{
+                echo 'code build'
+            }
+        }
+        stage ('Test'){
+            steps{
+                echo 'code tested'
+            }
+        }
+        stage ('deploy'){
+            steps{
+                echo 'code deployed'
+            }
+        }
+    }
+}
+
+
+# Artifact --- .war .jar
+
+# Build process - is to create artifact(.war,.jar) of a project files.
+
+for build you will have to use some tools -
+i) Maven - pom.xml
+ii) Gradle - gradlew
+iii) Ant - Ant
+
+Maven - java application, use to build artifact, pom.xml, 
+command - #mvn package or #mvn clean package 
+      -- these commands must run into directory where pom.xml present
+      -- after the command a new directory named target will create *.war
+
+
+>>>>> only to run commands over server  directly via pipeline 
+      sh 'mkdir hello'
+
+>> but if want to execute multiline command
+      sh '''mkdir hello
+            touch file.txt'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                 
